@@ -85,7 +85,6 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
-			 continue
 		}
 		// Create the payload for a basic text message
     response = {
@@ -121,7 +120,7 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
-function sendEventInfo(sender) {
+function sendEventInfo(sender_psid) {
     let messageData = {
         "attachment": {
             "type": "template",
@@ -159,7 +158,7 @@ function sendEventInfo(sender) {
         qs: {access_token:token},
         method: 'POST',
         json: {
-            recipient: {id:sender},
+            recipient: {id:sender_psid},
             message: messageData,
         }
     }, function(error, response, body) {
