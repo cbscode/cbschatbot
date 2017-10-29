@@ -80,21 +80,22 @@ function handleMessage(sender_psid, received_message) {
   // Check if the message contains text
   if (received_message.text) {    
     
+		let response;
 		//Workshop questions
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
+			 continue
 		}else{	
-			let response;
 			response = {
 				"text": `You sent the message: "${received_message.text}". Now send me an image!`
 			}
+			callSendAPI(sender_psid, response);    
 		}
 		// Create the payload for a basic text message
   }  
   
   // Sends the response message
-  //callSendAPI(sender_psid, response);    
 }
 
 function callSendAPI(sender_psid, response) {
@@ -155,6 +156,8 @@ function sendEventInfo(sender_psid) {
             }
         }
     }
+		callSendAPI(sender_psid, messageData);    
+		/*
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
@@ -170,6 +173,7 @@ function sendEventInfo(sender_psid) {
             console.log('Error: ', response.body.error)
         }
     })
+		*/
 }
 /*
 app.post('/webhook/', function (req, res) {
