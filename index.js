@@ -84,9 +84,17 @@ function handleMessage(sender_psid, received_message) {
 		let introduction = "Hi my name is Alfred, the CBS Code Chatbot.";
 		//Workshop questions
     let text = received_message.text;
-		if (text == "*workshop*" || text == "*event*"){
+		if (text = "*workshop*"){
 			 sendEventInfo(sender_psid);	
-		}else if(text == "*contact*" || text == "*email*"){	 
+		}else if (text = "*event*"){
+			 sendEventInfo(sender_psid);	
+		}else if(text = "*contact*"){	 
+			//Posibly looks for a contact
+			response = {
+				"text":  introduction+` you can contact us on info@cbscode.com!`
+			}
+			callSendAPI(sender_psid, response);    
+		}else if(text = "*email*"){	 
 			//Posibly looks for a contact
 			response = {
 				"text":  introduction+` you can contact us on info@cbscode.com!`
