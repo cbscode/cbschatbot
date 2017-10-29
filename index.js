@@ -88,9 +88,9 @@ function handleMessage(sender_psid, received_message) {
 			 continue
 		}
 		// Create the payload for a basic text message
-    //response = {
-    //  "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    //}
+    response = {
+      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+    }
   }  
   
   // Sends the response message
