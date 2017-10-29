@@ -85,6 +85,7 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
+			 continue
 		}
 		// Create the payload for a basic text message
     //response = {
