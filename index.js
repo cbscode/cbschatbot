@@ -105,7 +105,6 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
@@ -155,15 +154,14 @@ function sendEventInfo(sender_psid) {
             }
         }
     }
-		callSendAPI(sender_psid, response);    
-		/*
+		//callSendAPI(sender_psid, response);    
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
         method: 'POST',
         json: {
             recipient: {id:sender_psid},
-            message: messageData,
+            message: response,
         }
     }, function(error, response, body) {
         if (error) {
@@ -172,7 +170,6 @@ function sendEventInfo(sender_psid) {
             console.log('Error: ', response.body.error)
         }
     })
-		*/
 }
 /*
 app.post('/webhook/', function (req, res) {
