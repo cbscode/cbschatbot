@@ -82,14 +82,14 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     
 		//Workshop questions
-    let text = received_message.text
+    let text = received_message.text;
 		if (text === "workshop"){
-			 sendEventInfo(sender_psid)	
+			 sendEventInfo(sender_psid);	
 		}
 		// Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
+    //response = {
+    //  "text": `You sent the message: "${received_message.text}". Now send me an image!`
+    //}
   }  
   
   // Sends the response message
