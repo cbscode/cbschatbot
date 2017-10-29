@@ -85,7 +85,6 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
-			 continue
 		}else{	
 			response = {
 				"text": `You sent the message: "${received_message.text}". Now send me an image!`
