@@ -80,8 +80,13 @@ function handleMessage(sender_psid, received_message) {
 
   // Check if the message contains text
   if (received_message.text) {    
-
-    // Create the payload for a basic text message
+    
+		//Workshop questions
+    let text = received_message.text
+		if (text === "workshop"){
+			 sendEventInfo(sender_psid)	
+		}
+		// Create the payload for a basic text message
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an image!`
     }
@@ -115,6 +120,56 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
+function sendEventInfo(sender) {
+    let messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Welcome to CBS Code",
+										"image_url":"http://cbscode.com/wp-content/uploads/2017/02/team_s.jpg",
+                    "subtitle": "We aim to bridge the gap between business and technology",
+										"default_action":{
+												"type": "web_url",
+												"url": "https://www.facebook.com/cbscode/",
+												"messenger_extensions": true,
+												"webview_height_ratio": "tall",
+										},
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "http://www.cbscode.com",
+                        "title": "Visit Website"
+                    }, {
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://www.eventbrite.com/e/cbs-code-build-your-own-chatbot-with-botsupplyai-tickets-38820426942",
+                        "title": "Get Workshop Tickets"
+                    }, {
+                        "type": "postback",
+                        "title": "Start Chatting",
+                        "payload": "DEVELOPER_DEFINED_PAYLOAD",
+                    }],
+                }]
+            }
+        }
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
 /*
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
