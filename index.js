@@ -92,7 +92,6 @@ function handleMessage(sender_psid, received_message) {
 				"text": introduction+" I will contact a human to answer your question!"
 			}
 			callSendAPI(sender_psid, response);    
-		}
 		/*	 
 		}else if(text = "*contact*"){	 
 			//Posibly looks for a contact
