@@ -123,7 +123,7 @@ function callSendAPI(sender_psid, response) {
 
 function sendEventInfo(sender_psid) {
 	  
-    let messageData = {
+    let response = {
         "attachment": {
             "type": "template",
             "payload": {
@@ -155,7 +155,7 @@ function sendEventInfo(sender_psid) {
             }
         }
     }
-		callSendAPI(sender_psid, messageData);    
+		callSendAPI(sender_psid, response);    
 		/*
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
