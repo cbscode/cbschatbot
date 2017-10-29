@@ -85,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
-		}else if(text == "*experience*"){	 
+		}else if(text = "*experience*"){	 
 			response = {
 				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
 				"text": `Hi my name is Alfred, the CBS Code Chatbot. no coding experience is necessary on the workshop!`
