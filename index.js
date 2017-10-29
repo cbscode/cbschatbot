@@ -89,7 +89,7 @@ function handleMessage(sender_psid, received_message) {
 		}else if(text != "*event*"){
 			response = {
 				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
-				"text": introduction+` I will contact a human to answer your question!`
+				"text": introduction+" I will contact a human to answer your question!"
 			}
 			callSendAPI(sender_psid, response);    
 		}
