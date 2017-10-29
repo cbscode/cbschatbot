@@ -86,12 +86,6 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "hi"){
 			 sendEventInfo(sender_psid);	
-		}else if(text != "*event*"){
-			response = {
-				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
-				"text": introduction+` I will contact a human to answer your question!`
-			}
-			callSendAPI(sender_psid, response);    	 
 		}else if(text = "*contact*"){	 
 			//Posibly looks for a contact
 			response = {
@@ -115,6 +109,12 @@ function handleMessage(sender_psid, received_message) {
 				"text": introduction+` no coding experience is necessary on the workshop!`
 			}
 			callSendAPI(sender_psid, response);    
+		}else if(text != "*event*"){
+			response = {
+				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
+				"text": introduction+` I will contact a human to answer your question!`
+			}
+			callSendAPI(sender_psid, response);    	 
 		}else{	
 			response = {
 				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
