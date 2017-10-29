@@ -86,26 +86,6 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text = "*workshop*"){
 			 sendEventInfo(sender_psid);	
-		}else if (text = "*event*"){
-			 sendEventInfo(sender_psid);	
-		}else if(text = "*contact*"){	 
-			//Posibly looks for a contact
-			response = {
-				"text":  introduction+` you can contact us on info@cbscode.com!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*email*"){	 
-			//Posibly looks for a contact
-			response = {
-				"text":  introduction+` you can contact us on info@cbscode.com!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*join*"){	 
-			//Posibly a new volunteer
-			response = {
-				"text":  introduction+` we are always open to volunteers, I will contact a human!`
-			}
-			callSendAPI(sender_psid, response);    
 		}else if(text = "*experience*"){	 
 			response = {
 				"text": introduction+` no coding experience is necessary on the workshop!`
