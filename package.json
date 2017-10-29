@@ -1,0 +1,31 @@
+{
+  "name": "cbscodebot",
+  "version": "1.0.0",
+  "description": "the cbs code facebook bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "facebook",
+    "messenger",
+    "bot",
+    "heroku"
+  ],
+  "author": "gatikman",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbscode/cbschatbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cbscode/cbschatbot/issues"
+  },
+  "homepage": "https://github.com/cbscode/cbschatbot#readme"
+}
