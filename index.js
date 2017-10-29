@@ -76,7 +76,6 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
 
-  let response;
 
   // Check if the message contains text
   if (received_message.text) {    
@@ -85,11 +84,13 @@ function handleMessage(sender_psid, received_message) {
     let text = received_message.text;
 		if (text === "workshop"){
 			 sendEventInfo(sender_psid);	
+		}else{	
+			let response;
+			response = {
+				"text": `You sent the message: "${received_message.text}". Now send me an image!`
+			}
 		}
 		// Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
   }  
   
   // Sends the response message
