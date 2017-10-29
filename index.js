@@ -141,7 +141,6 @@ function sendEventInfo(sender) {
                         "url": "http://www.cbscode.com",
                         "title": "Visit Website"
                     }, {
-                    "buttons": [{
                         "type": "web_url",
                         "url": "https://www.eventbrite.com/e/cbs-code-build-your-own-chatbot-with-botsupplyai-tickets-38820426942",
                         "title": "Get Workshop Tickets"
