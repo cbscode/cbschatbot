@@ -104,8 +104,7 @@ function handleMessage(sender_psid, received_message) {
 	}
   let test = "key_"; 
 	for(x=0;x<=keywords.length-1;x++){	
-      key = test.concat(keywords[x]);
-
+      key = eval("key_event");
 			console.log(key);
 		  for(y=0;y<=key.length-1;y++){
 				 console.log("key_"+key[y]);
