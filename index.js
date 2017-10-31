@@ -93,7 +93,8 @@ function handleMessage(sender_psid, received_message) {
   
   //How many words are in the string
 	let words = text.split(" ").length;
-  let x,y,key;
+  let x,y;
+	let key = [];
   
   function print_word(palabra){
 		response = {
