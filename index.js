@@ -99,7 +99,7 @@ function handleMessage(sender_psid, received_message) {
 	for(x=0;x<=keywords.length;x++){	
 		  kw = keywords[x]; 
 			response = {
-				"text": introduction+": key_"+kw;
+				"text": introduction+": key_";
 			}
 	}
 
