@@ -100,88 +100,45 @@ function handleMessage(sender_psid, received_message) {
   // Check if the message contains text
   if (received_message.text) {    
 
-  function print_word(keyword,key){
-    //The console Intelligence
-	  console.log("TOPIC: "+keyword+" KEYWORD: "+key);
-    if(keyword === "contact"){
-			//Posibly looks for a contact
-			response = {
-				"text":  introduction+` you can contact us on info@cbscode.com!`
+		function print_word(keyword,key){
+			//The console Intelligence
+			console.log("TOPIC: "+keyword+" KEYWORD: "+key);
+			if(keyword === "contact"){
+				//Posibly looks for a contact
+				response = {
+					"text":  introduction+` You can contact us on info@cbscode.com!`
+				}
+				callSendAPI(sender_psid, response);    	
+			}else if(keyword === "experience"){			
+				response = {
+					"text": introduction+` No coding experience is necessary on the workshop! Nevertheless is always an advantage.`
+				}
+				callSendAPI(sender_psid, response);    	
+			}else if(keyword == "event"){
+				sendEventInfo(sender_psid);			
+			}else{
+				//Any other scenario	
+				response = {
+						"text": introduction+` Clever question! I will need to contact a human to answer you!`
+				}
+				callSendAPI(sender_psid, response);    	
 			}
-			callSendAPI(sender_psid, response);    	
-		}else if(keyword === "experience"){			
-			response = {
-				"text": introduction+` no coding experience is necessary on the workshop! Nevertheless is always an advantage.`
-			}
-			callSendAPI(sender_psid, response);    	
-		}else if(keyword == "event"){
-			sendEventInfo(sender_psid);			
-		}else{
-			//Any other scenario	
-			response = {
-					"text": introduction+` I will contact a human to answer your question!`
-			}
-			callSendAPI(sender_psid, response);    	
+
 		}
 
-	}
-
-  //This For measures the main categories on each array
-	for(x=0;x<=keywords.length-1;x++){	
-      key = eval("key_"+keywords[x]);
-			//Here I check if each word inside of each category array has a match on the written text
-		  for(y=0;y<=key.length-1;y++){
-         if (text.indexOf(key[y]) > -1){
-						print_word(keywords[x],key[y]);	 
-				 }
-			}
-	}
-
-    /*
-		if (text === "hi"){
-			 sendEventInfo(sender_psid);		
-		}else if(text = "*experience*"){	 
-			response = {
-				"text": introduction+` no coding experience is necessary on the workshop!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*contact*"){	 
-			//Posibly looks for a contact
-			response = {
-				"text":  introduction+` you can contact us on info@cbscode.com!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*email*"){	 
-			//Posibly looks for a contact
-			response = {
-				"text":  introduction+` you can contact us on info@cbscode.com!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*join*"){	 
-			//Posibly a new volunteer
-			response = {
-				"text":  introduction+` we are always open to volunteers, I will contact a human!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text = "*experience*"){	 
-			response = {
-				"text": introduction+` no coding experience is necessary on the workshop!`
-			}
-			callSendAPI(sender_psid, response);    
-		}else if(text != "*event*"){
-			response = {
-				//"text": `Hi my name is Alfred, the CBS Code Chatbot: "${received_message.text}". I will contact a human to answer your question!`
-				"text": introduction+` I will contact a human to answer your question!`
-			}
-			callSendAPI(sender_psid, response);    	 
-		}else{	
-			response = {
-				"text": introduction+` I will contact a human to answer your question!`
-			}
-			callSendAPI(sender_psid, response);    
+		//This For measures the main categories on each array
+		for(x=0;x<=keywords.length-1;x++){	
+				key = eval("key_"+keywords[x]);
+				//Here I check if each word inside of each category array has a match on the written text
+				for(y=0;y<=key.length-1;y++){
+					 if (text.indexOf(key[y]) > -1){
+							print_word(keywords[x],key[y]);	 
+					 }else{
+						  print_word("empty","0")
+						}
+				}
 		}
-		// Create the payload for a basic text message
-		*/	
+
   }  
   
   // Sends the response message
@@ -219,7 +176,7 @@ function sendEventInfo(sender_psid) {
                 "template_type": "generic",
                 "elements": [{
                     "title": "Welcome to CBS Code",
-										"image_url":"http://cbscode.com/wp-content/uploads/2017/02/team_s.jpg",
+										"image_url":"http://cbscode.com/wp-content/uploads/2017/02/1.png",
                     "subtitle": "We aim to bridge the gap between business and technology",
 										"default_action":{
 												"type": "web_url",
