@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
 			console.log(key);
 		  for(y=0;y<=key.length-1;y++){
          if ("exp" === text){
-						//print_word(key[y]);	 
+						print_word(key[y]);	 
 				 }
 			}
 	}
