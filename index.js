@@ -95,22 +95,20 @@ function handleMessage(sender_psid, received_message) {
 	let words = text.split(" ").length;
   let x,y,key;
   
+  function print_word(palabra){
+		response = {
+			"text": introduction+": key_"+palabra
+		}
+		callSendAPI(sender_psid, response);    	
+	}
 
 	for(x=0;x<=keywords.length-1;x++){	
       key = "key_"+keywords[x];
 		  for(y=0;y<=key.length-1;y++){
-         if (key[y].match(text)){
-				  print_word(key[y]);	 
+         if (text.indexOf(key[y]) >= 0){
+						print_word(key[y]);	 
 				 }
 			}
-	}
-
-  function print_word(palabra){
-		response = {
-			"text": introduction+": key_"+keywords[x]
-		}
-		callSendAPI(sender_psid, response);    
-	
 	}
 
   // Check if the message contains text
