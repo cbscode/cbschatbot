@@ -94,12 +94,11 @@ function handleMessage(sender_psid, received_message) {
   //How many words are in the string
 	let words = text.split(" ").length;
 
-  let kw;
+  
 
 	for(x=0;x<=keywords.length;x++){	
-		  kw = keywords[x]; 
 			response = {
-				"text": introduction+": key_";
+				"text": introduction+": key_"+keywords[x]
 			}
 	}
 
