@@ -134,12 +134,9 @@ function handleMessage(sender_psid, received_message) {
 					 if (text.indexOf(key[y]) > -1){
 							print_word(keywords[x],key[y]);	 
 							answered = true;
-					 }else{
-						  answered = false;
-						}
+					 }
 				}
 		}
-		if (!answered){print_word("empty","0")}
 
   }  
   
