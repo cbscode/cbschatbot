@@ -99,6 +99,14 @@ function handleMessage(sender_psid, received_message) {
   // Check if the message contains text
   if (received_message.text) {    
 
+  function print_word(keyword,key){
+
+		response = {
+			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
+		}
+		callSendAPI(sender_psid, response);    	
+	}
+
   //This For measures the main categories on each array
 	for(x=0;x<=keywords.length-1;x++){	
       key = eval("key_"+keywords[x]);
@@ -109,15 +117,6 @@ function handleMessage(sender_psid, received_message) {
 						print_word(keywords[x],key[y]);	 
 				 }
 			}
-	}
-
-    
-  function print_word(keyword,key){
-
-		response = {
-			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
-		}
-		callSendAPI(sender_psid, response);    	
 	}
 
     /*
