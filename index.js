@@ -87,7 +87,7 @@ function handleMessage(sender_psid, received_message) {
   let keywords = ["experience", "contact", "event"];
   
 	//Sub Keywords
-  let key_experience = ["Experience"];
+  let key_experience = ["experience"];
 	let key_contact = ["email", "contact", "join"];
 	let key_event = ["event","chatbot"];
   
@@ -96,7 +96,7 @@ function handleMessage(sender_psid, received_message) {
   let x;
   
 
-	for(x=0;x<=keywords.length;x++){	
+	for(x=0;x<=keywords.length-1;x++){	
 			response = {
 				"text": introduction+": key_"+keywords[x]
 			}
