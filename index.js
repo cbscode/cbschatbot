@@ -98,7 +98,7 @@ function handleMessage(sender_psid, received_message) {
 
 	for(x=0;x<=keywords.length;x++){	
 			response = {
-				"text": introduction+": key_"+keywords[x];
+				"text": introduction+": key_"+keywords[x]+;
 			}
 	}
 
