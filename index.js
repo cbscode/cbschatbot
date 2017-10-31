@@ -108,7 +108,7 @@ function handleMessage(sender_psid, received_message) {
 			//console.log(key);
 		  for(y=0;y<=key.length-1;y++){
 				 console.log(key[y]);
-         if (textstr.indexOf(key[y]) > -1){
+         if (text.indexOf(key[y]) > -1){
 						//console.log(key[y])
 						print_word(key[y]);	 
 				 }
