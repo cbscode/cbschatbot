@@ -102,9 +102,8 @@ function handleMessage(sender_psid, received_message) {
 				response = {
 					"text": introduction+": key_"+keywords[x]
 				}
-				callSendAPI(sender_psid, response);    
-
 			}
+				callSendAPI(sender_psid, response);    
 	}
 
   // Check if the message contains text
