@@ -102,9 +102,10 @@ function handleMessage(sender_psid, received_message) {
 		}
 		callSendAPI(sender_psid, response);    	
 	}
-  let test = "key_"; 
+
 	for(x=0;x<=keywords.length-1;x++){	
-      key = eval("key_event");
+      key = eval("key_"+keywords[x]);
+
 			console.log(key);
 		  for(y=0;y<=key.length-1;y++){
 				 console.log("key_"+key[y]);
