@@ -96,28 +96,30 @@ function handleMessage(sender_psid, received_message) {
   let x,y;
 	let key = [];
   
-  function print_word(palabra){
-		response = {
-			"text": introduction+": key_"+palabra
-		}
-		callSendAPI(sender_psid, response);    	
-	}
+  // Check if the message contains text
+  if (received_message.text) {    
 
+  //This For measures the main categories on each array
 	for(x=0;x<=keywords.length-1;x++){	
       key = eval("key_"+keywords[x]);
-			//console.log(key);
+			//Here I check if each word inside of each category array has a match on the written text
 		  for(y=0;y<=key.length-1;y++){
 				 console.log(key[y]);
          if (text.indexOf(key[y]) > -1){
-						//console.log(key[y])
-						print_word(key[y]);	 
+						print_word(keywords[x],key[y]);	 
 				 }
 			}
 	}
 
-  // Check if the message contains text
-  if (received_message.text) {    
     
+  function print_word(keyword,key){
+
+		response = {
+			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
+		}
+		callSendAPI(sender_psid, response);    	
+	}
+
     /*
 		if (text === "hi"){
 			 sendEventInfo(sender_psid);		
