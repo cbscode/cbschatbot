@@ -130,7 +130,7 @@ function handleMessage(sender_psid, received_message) {
       key = eval("key_"+keywords[x]);
 			//Here I check if each word inside of each category array has a match on the written text
 		  for(y=0;y<=key.length-1;y++){
-         if (text.indexOf(key[y]) > -1){
+         if (text.indexOf(text.toLowerCase((key[y]) > -1)){
 						print_word(keywords[x],key[y]);	 
 				 }
 			}
