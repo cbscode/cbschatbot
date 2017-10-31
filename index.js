@@ -96,6 +96,7 @@ function handleMessage(sender_psid, received_message) {
 	let words = text.split(" ").length;
   let x,y;
 	let key = [];
+	let answered = false;
   
   // Check if the message contains text
   if (received_message.text) {    
@@ -116,14 +117,13 @@ function handleMessage(sender_psid, received_message) {
 				callSendAPI(sender_psid, response);    	
 			}else if(keyword == "event"){
 				sendEventInfo(sender_psid);			
-			}else{
+			}else if(!answered){
 				//Any other scenario	
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
 				}
 				callSendAPI(sender_psid, response);    	
 			}
-
 		}
 
 		//This For measures the main categories on each array
@@ -133,11 +133,13 @@ function handleMessage(sender_psid, received_message) {
 				for(y=0;y<=key.length-1;y++){
 					 if (text.indexOf(key[y]) > -1){
 							print_word(keywords[x],key[y]);	 
+							answered = true;
 					 }else{
-						  print_word("empty","0")
+						  answered = false;
 						}
 				}
 		}
+		if (!answered){print_word("empty","0")}
 
   }  
   
