@@ -1,6 +1,6 @@
 'use strict'
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+const token = process.env.FB_PAGE_ACCESS_TOKEN_TEST
 const vtoken = process.env.FB_PAGE_VERIFY_TOKEN
 
 const express = require('express')
