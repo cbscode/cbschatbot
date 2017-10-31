@@ -105,7 +105,7 @@ function handleMessage(sender_psid, received_message) {
 	for(x=0;x<=keywords.length-1;x++){	
       key = "key_"+keywords[x];
 		  for(y=0;y<=key.length-1;y++){
-         if (text.indexOf(key[y]) >= 0){
+         if (key[y] === text){
 						print_word(key[y]);	 
 				 }
 			}
