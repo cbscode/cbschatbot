@@ -137,6 +137,7 @@ function handleMessage(sender_psid, received_message) {
 					 }
 				}
 		}
+		if (!answered){print_word("empty","0")}
 
   }  
   
