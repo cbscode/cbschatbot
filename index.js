@@ -101,7 +101,7 @@ function handleMessage(sender_psid, received_message) {
 
   function print_word(keyword,key){
     //The console Intelligence
-	  console.log("text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key);
+	  console.log("TOPIC: "+keyword+" KEYWORD: "+key);
     if(keyword === "contact"){
 			//Posibly looks for a contact
 			response = {
@@ -130,7 +130,6 @@ function handleMessage(sender_psid, received_message) {
       key = eval("key_"+keywords[x]);
 			//Here I check if each word inside of each category array has a match on the written text
 		  for(y=0;y<=key.length-1;y++){
-				 console.log(key[y]);
          if (text.indexOf(key[y]) > -1){
 						print_word(keywords[x],key[y]);	 
 				 }
