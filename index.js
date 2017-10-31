@@ -93,14 +93,18 @@ function handleMessage(sender_psid, received_message) {
   
   //How many words are in the string
 	let words = text.split(" ").length;
-  let x;
+  let x,y,key;
   
 
 	for(x=0;x<=keywords.length-1;x++){	
-			response = {
-				"text": introduction+": key_"+keywords[x]
+      key = key_+keywords[x];
+		  for(y=0;y<=key-1;y++){
+				response = {
+					"text": introduction+": key_"+keywords[x]
+				}
+				callSendAPI(sender_psid, response);    
+
 			}
-			callSendAPI(sender_psid, response);    
 	}
 
   // Check if the message contains text
