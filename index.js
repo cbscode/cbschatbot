@@ -1,6 +1,7 @@
 'use strict'
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN_TEST
+//const token = process.env.FB_PAGE_ACCESS_TOKEN_TEST
+const token = process.env.FB_PAGE_ACCESS_TOKEN
 const vtoken = process.env.FB_PAGE_VERIFY_TOKEN
 
 const express = require('express')
@@ -78,7 +79,7 @@ function handleMessage(sender_psid, received_message) {
 
 
 	let response;
-	let introduction = "Hi my name is Alfred, the CBS Code Chatbot.";
+	let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
 	//Workshop questions
 	let text = received_message.text;		
 	text = text.toLowerCase();
@@ -88,9 +89,9 @@ function handleMessage(sender_psid, received_message) {
   let keywords = ["experience", "contact", "event"];
   
 	//Sub Keywords
-  let key_experience = ["experience"];
+  let key_experience = ["experience", "knowledge"];
 	let key_contact = ["email", "contact", "join", "question"];
-	let key_event = ["event","chatbot"];
+	let key_event = ["event","chatbot","workshop"];
   
   //How many words are in the string
 	let words = text.split(" ").length;
