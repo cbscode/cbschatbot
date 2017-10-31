@@ -102,9 +102,9 @@ function handleMessage(sender_psid, received_message) {
 		}
 		callSendAPI(sender_psid, response);    	
 	}
-
+  let test = "key_"; 
 	for(x=0;x<=keywords.length-1;x++){	
-      key = "key_"+keywords[x];
+      key = test.concat(keywords[x]);
 
 			console.log(key);
 		  for(y=0;y<=key.length-1;y++){
