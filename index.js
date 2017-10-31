@@ -1,6 +1,6 @@
 'use strict'
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+const token = process.env.FB_PAGE_ACCESS_TOKEN_TEST
 const vtoken = process.env.FB_PAGE_VERIFY_TOKEN
 
 const express = require('express')
@@ -77,20 +77,37 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
 
+	let response;
+	let introduction = "Hi my name is Alfred, the CBS Code Chatbot.";
+	//Workshop questions
+	let text = received_message.text;		
+
+  //Keyword Intelligence 
+	//Topics
+  let keywords = ["experience", "contact", "event"];
+  
+	//Sub Keywords
+  let key_experience = ["Experience"];
+	let key_contact = ["email", "contact", "join"];
+	let key_event = ["event","chatbot"];
+  
+  //How many words are in the string
+	let words = text.split(" ").length;
+
+  
+
+	for(x=0;x<=keywords.length;x++){	
+			response = {
+				"text": introduction+": key_"+keywords[x];
+			}
+	}
+
   // Check if the message contains text
   if (received_message.text) {    
     
-		let response;
-		let introduction = "Hi my name is Alfred, the CBS Code Chatbot.";
-		//Workshop questions
-    let text = received_message.text;
-		
-		for (x=0;x<=text.length;x++){
-		}
-
+    /*
 		if (text === "hi"){
-			 sendEventInfo(sender_psid);	
-		/*	
+			 sendEventInfo(sender_psid);		
 		}else if(text = "*experience*"){	 
 			response = {
 				"text": introduction+` no coding experience is necessary on the workshop!`
@@ -125,7 +142,6 @@ function handleMessage(sender_psid, received_message) {
 				"text": introduction+` I will contact a human to answer your question!`
 			}
 			callSendAPI(sender_psid, response);    	 
-		*/	
 		}else{	
 			response = {
 				"text": introduction+` I will contact a human to answer your question!`
@@ -133,6 +149,7 @@ function handleMessage(sender_psid, received_message) {
 			callSendAPI(sender_psid, response);    
 		}
 		// Create the payload for a basic text message
+		*/	
   }  
   
   // Sends the response message
