@@ -88,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
   
 	//Sub Keywords
   let key_experience = ["experience"];
-	let key_contact = ["email", "contact", "join"];
+	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot"];
   
   //How many words are in the string
@@ -101,9 +101,28 @@ function handleMessage(sender_psid, received_message) {
 
   function print_word(keyword,key){
 
+    if(keyword === "contact"){
+		
 		response = {
 			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
 		}
+		}else if(keyword === "experience"){
+			
+		response = {
+			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
+		}
+		}else if(keyword == "event"){
+			
+		response = {
+			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
+		}
+		}else{
+			
+		response = {
+			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
+		}
+		}
+
 		callSendAPI(sender_psid, response);    	
 	}
 
