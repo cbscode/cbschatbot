@@ -84,6 +84,10 @@ function handleMessage(sender_psid, received_message) {
 		let introduction = "Hi my name is Alfred, the CBS Code Chatbot.";
 		//Workshop questions
     let text = received_message.text;
+		
+		for (x=0;x<=text.length;x++){
+		}
+
 		if (text === "hi"){
 			 sendEventInfo(sender_psid);	
 		/*	
