@@ -100,30 +100,29 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
 
   function print_word(keyword,key){
-
+    //The console Intelligence
+	  console.log("text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key);
     if(keyword === "contact"){
-		
-		response = {
-			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
-		}
-		}else if(keyword === "experience"){
-			
-		response = {
-			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
-		}
+			//Posibly looks for a contact
+			response = {
+				"text":  introduction+` you can contact us on info@cbscode.com!`
+			}
+			callSendAPI(sender_psid, response);    	
+		}else if(keyword === "experience"){			
+			response = {
+				"text": introduction+` no coding experience is necessary on the workshop! Nevertheless is always an advantage.`
+			}
+			callSendAPI(sender_psid, response);    	
 		}else if(keyword == "event"){
-			
-		response = {
-			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
-		}
+			sendEventInfo(sender_psid);			
 		}else{
-			
-		response = {
-			"text": introduction+": TOPIC: "+keyword+" KEYWORD: "+key
-		}
+			//Any other scenario	
+			response = {
+					"text": introduction+` I will contact a human to answer your question!`
+			}
+			callSendAPI(sender_psid, response);    	
 		}
 
-		callSendAPI(sender_psid, response);    	
 	}
 
   //This For measures the main categories on each array
