@@ -114,7 +114,7 @@ function handleMessage(sender_psid, received_message) {
 
   //Keyword Intelligence
 	//Topics
-  let keywords = ["experience", "contact", "event", "welcome", "negative"];
+  let keywords = ["experience", "contact", "event", "welcome", "negative", "positive"];
 
 	//Sub Keywords
   let key_experience = ["experience", "knowledge"];
