@@ -9,7 +9,6 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 const fs = require('fs')
-const { exec } = require('child_process')
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -84,9 +83,6 @@ function deleteUsers() {
 
 function handleMessage(sender_psid, received_message) {
 
-  console.log("HER KØRER DEN EXEC");
-  exec('config:set VAR_TEST_TEST=test');
-  console.log(process.env.VAR_TEST_TEST);
 
   let response;
   let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
