@@ -114,16 +114,17 @@ function handleMessage(sender_psid, received_message) {
 
   //Keyword Intelligence
 	//Topics
-  let keywords = ["experience", "contact", "event"];
+  let keywords = ["experience", "contact", "event", "welcome"];
 
 	//Sub Keywords
   let key_experience = ["experience", "knowledge"];
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
+  let key_welcome = ["hej", "hi", "hey", "hello", "hola"];
 
   //How many words are in the string
 	let words = text.split(" ").length;
-  let x,y;
+  let x,y,response;
 	let key = [];
 	let answered = false;
 
@@ -144,8 +145,14 @@ function handleMessage(sender_psid, received_message) {
 					"text": introduction+` No coding experience is necessary on the workshop! Nevertheless is always an advantage.`
 				}
 				callSendAPI(sender_psid, response);
+			}else if(keyword === "welcome"){
+				response = {
+					"text": introduction
+				}
+				sendEventInfo(sender_psid,keyword);
+				callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
-				sendEventInfo(sender_psid);
+				sendEventInfo(sender_psid,keyword);
 			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
@@ -199,9 +206,10 @@ function callSendAPI(sender_psid, response) {
   });
 }
 
-function sendEventInfo(sender_psid) {
-
-    let response = {
+function sendEventInfo(sender_psid,keyword) {
+    
+		if(keyword === "welcome"){			
+      response = {
         "attachment": {
             "type": "template",
             "payload": {
@@ -210,6 +218,35 @@ function sendEventInfo(sender_psid) {
                     "title": "Welcome to CBS Code",
 										"image_url":"http://cbscode.com/wp-content/uploads/2017/02/1.png",
                     "subtitle": "We aim to bridge the gap between business and technology",
+										"default_action":{
+												"type": "web_url",
+												"url": "https://www.facebook.com/cbscode/",
+												"messenger_extensions": true,
+												"webview_height_ratio": "tall",
+										},
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "http://www.cbscode.com",
+                        "title": "Visit Website"
+                    }, {
+                        "type": "postback",
+                        "title": "Start Chatting",
+                        "payload": "DEVELOPER_DEFINED_PAYLOAD",
+                    }],
+                }]
+            }
+        }
+			}	
+		}else{
+      response = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Welcome to CBS Code",
+										"image_url":"http://cbscode.com/wp-content/uploads/2017/11/22538684_1580502938677015_4938843189517739898_o.jpg",
+                    "subtitle": "Workshop on Create your Own ChatBot",
 										"default_action":{
 												"type": "web_url",
 												"url": "https://www.facebook.com/cbscode/",
@@ -232,6 +269,7 @@ function sendEventInfo(sender_psid) {
                 }]
             }
         }
+			}	
     }
 		//callSendAPI(sender_psid, response);
     request({
