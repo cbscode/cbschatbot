@@ -76,15 +76,26 @@ app.post('/webhook', (req, res) => {
 
 });
 
+//Empty the users.txt file
+function deleteUsers() {
+  fs.writeFileSync("users.txt","", 'utf8')
+}
+
 function handleMessage(sender_psid, received_message) {
 
-  let file = fs.readFileSync("users.txt", 'utf8');
-  let users = file.split(" ");
+  //Check if new user or old user
+  let newUser;
+  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
+  //If our 'database' has this sender_psid it is not a new user
   if (users.includes(sender_psid)){
+    newUser = false;
     console.log("USERS containts: " + sender_psid);
   } else {
-    fs.writeFileSync("users.txt", file + sender_psid + " ", 'utf8')
-    console.log("Added to USERS: " + users);
+    //If it doesnt it is a new user
+    newUser = true;
+    //Add this sender_psid to the 'database'
+    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
+    console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
 
@@ -129,7 +140,7 @@ function handleMessage(sender_psid, received_message) {
 				callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
 				sendEventInfo(sender_psid);
-			}else if(!answered){
+			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
