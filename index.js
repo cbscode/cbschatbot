@@ -80,7 +80,7 @@ function handleMessage(sender_psid, received_message) {
 
   fs.readFile("users.txt", 'utf8', function (err, data) {
     if (err) throw err;
-    console.log(data);
+    console.log("DATA: " + data);
   })
 
 	let response;
