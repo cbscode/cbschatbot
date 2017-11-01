@@ -83,7 +83,7 @@ function handleMessage(sender_psid, received_message) {
   if (users.includes(sender_psid)){
     console.log("USERS containts: " + sender_psid);
   } else {
-    fs.writeFileSync("users.txt", file + sender.psid + " ", 'utf8')
+    fs.writeFileSync("users.txt", file + sender_psid + " ", 'utf8')
     console.log("Added to USERS: " + users);
   }
 
