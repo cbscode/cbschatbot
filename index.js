@@ -149,7 +149,7 @@ function handleMessage(sender_psid, received_message) {
 			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
-						"text": introduction+` Clever question! I will need to contact a human to answer you!`
+						"text": introduction+` Clever! I will need to contact my human to answer you!`
 				}
         //Add this sender_psid to the 'database'
         fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
