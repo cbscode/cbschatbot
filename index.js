@@ -121,8 +121,8 @@ function handleMessage(sender_psid, received_message) {
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
   let key_welcome = ["hej", "hi", "hey", "hello", "hola"];
-	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"]
-	let key_positive = ["love"]
+	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"];
+	let key_positive = ["love"];
 
   //How many words are in the string
 	let words = text.split(" ").length;
