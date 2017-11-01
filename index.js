@@ -150,7 +150,7 @@ function handleMessage(sender_psid, received_message) {
 					"text": introduction
 				}
 				sendEventInfo(sender_psid,keyword);
-				callSendAPI(sender_psid, response);
+				//callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
 				sendEventInfo(sender_psid,keyword);
 			}else if(!answered && newUser){
@@ -207,7 +207,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 function sendEventInfo(sender_psid,keyword) {
-    
+    let response; 
 		if(keyword === "welcome"){			
       response = {
         "attachment": {
