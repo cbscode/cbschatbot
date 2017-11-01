@@ -78,7 +78,9 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
 
-  console.log("USERS: " + fs.readFileSync("users.txt", 'utf8'));
+  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
+
+  console.log("USERS: " + users);
 
 	let response;
 	let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
