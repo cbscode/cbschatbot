@@ -78,11 +78,13 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
 
-  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
+  let file = fs.readFileSync("users.txt", 'utf8');
+  let users = file.split(" ");
   if (users.includes(sender_psid)){
     console.log("USERS containts: " + sender_psid);
   } else {
-    console.log("USERS: " + users);
+    fs.writeFileSync("users.txt", file + sender.psid + " ", 'utf8')
+    console.log("Added to USERS: " + users);
   }
 
 
