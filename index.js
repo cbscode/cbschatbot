@@ -100,9 +100,6 @@ function handleMessage(sender_psid, received_message) {
   } else {
     //If it doesnt it is a new user
     newUser = true;
-    //Add this sender_psid to the 'database'
-    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
-    console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
   //Delete all data in users.txt
@@ -154,6 +151,9 @@ function handleMessage(sender_psid, received_message) {
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
 				}
+        //Add this sender_psid to the 'database'
+        fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
+        console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
 				callSendAPI(sender_psid, response);
 			}
 		}
