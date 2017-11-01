@@ -124,7 +124,7 @@ function handleMessage(sender_psid, received_message) {
 
   //How many words are in the string
 	let words = text.split(" ").length;
-  let x,y,response;
+  let x,y;
 	let key = [];
 	let answered = false;
 
