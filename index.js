@@ -83,6 +83,12 @@ function deleteUsers() {
 
 function handleMessage(sender_psid, received_message) {
 
+  let response;
+  let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
+  //Workshop questions
+  let text = received_message.text;
+  text = text.toLowerCase();
+
   //Check if new user or old user
   let newUser;
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
@@ -98,13 +104,14 @@ function handleMessage(sender_psid, received_message) {
     console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
+  if (text === "heroku deleteUsers -t " + vtoken) {
+    deleteUsers();
+    console.log("USER deleted");
+    return;
+  }
 
 
-	let response;
-	let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
-	//Workshop questions
-	let text = received_message.text;
-	text = text.toLowerCase();
+
 
   //Keyword Intelligence
 	//Topics
