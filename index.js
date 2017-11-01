@@ -8,6 +8,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const fs = require('fs')
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -35,7 +36,7 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-app.post('/webhook', (req, res) => {  
+app.post('/webhook', (req, res) => {
 
   // Parse the request body from the POST
   let body = req.body;
@@ -46,7 +47,7 @@ app.post('/webhook', (req, res) => {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
 
-      // Get the webhook event. entry.messaging is an array, but 
+      // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
@@ -58,7 +59,7 @@ app.post('/webhook', (req, res) => {
 			// Check if the event is a message or postback and
 			// pass the event to the appropriate handler function
 			if (webhook_event.message) {
-				handleMessage(sender_psid, webhook_event.message);        
+				handleMessage(sender_psid, webhook_event.message);
 			} else if (webhook_event.postback) {
 				handlePostback(sender_psid, webhook_event.postback);
 			}
@@ -77,30 +78,34 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
 
+  fs.readFile("users.txt", 'utf8', function (err, data) {
+    if (err) throw err;
+    console.log(data);
+  })
 
 	let response;
 	let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
 	//Workshop questions
-	let text = received_message.text;		
+	let text = received_message.text;
 	text = text.toLowerCase();
 
-  //Keyword Intelligence 
+  //Keyword Intelligence
 	//Topics
   let keywords = ["experience", "contact", "event"];
-  
+
 	//Sub Keywords
   let key_experience = ["experience", "knowledge"];
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
-  
+
   //How many words are in the string
 	let words = text.split(" ").length;
   let x,y;
 	let key = [];
 	let answered = false;
-  
+
   // Check if the message contains text
-  if (received_message.text) {    
+  if (received_message.text) {
 
 		function print_word(keyword,key){
 			//The console Intelligence
@@ -110,38 +115,38 @@ function handleMessage(sender_psid, received_message) {
 				response = {
 					"text":  introduction+` You can contact us on info@cbscode.com!`
 				}
-				callSendAPI(sender_psid, response);    	
-			}else if(keyword === "experience"){			
+				callSendAPI(sender_psid, response);
+			}else if(keyword === "experience"){
 				response = {
 					"text": introduction+` No coding experience is necessary on the workshop! Nevertheless is always an advantage.`
 				}
-				callSendAPI(sender_psid, response);    	
+				callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
-				sendEventInfo(sender_psid);			
+				sendEventInfo(sender_psid);
 			}else if(!answered){
-				//Any other scenario	
+				//Any other scenario
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
 				}
-				callSendAPI(sender_psid, response);    	
+				callSendAPI(sender_psid, response);
 			}
 		}
 
 		//This For measures the main categories on each array
-		for(x=0;x<=keywords.length-1;x++){	
+		for(x=0;x<=keywords.length-1;x++){
 				key = eval("key_"+keywords[x]);
 				//Here I check if each word inside of each category array has a match on the written text
 				for(y=0;y<=key.length-1;y++){
 					 if (text.indexOf(key[y]) > -1){
-							print_word(keywords[x],key[y]);	 
+							print_word(keywords[x],key[y]);
 							answered = true;
 					 }
 				}
 		}
 		if (!answered){print_word("empty","0")}
 
-  }  
-  
+  }
+
   // Sends the response message
 }
 
@@ -165,11 +170,11 @@ function callSendAPI(sender_psid, response) {
     } else {
       console.error("Unable to send message:" + err);
     }
-  }); 
+  });
 }
 
 function sendEventInfo(sender_psid) {
-	  
+
     let response = {
         "attachment": {
             "type": "template",
@@ -202,7 +207,7 @@ function sendEventInfo(sender_psid) {
             }
         }
     }
-		//callSendAPI(sender_psid, response);    
+		//callSendAPI(sender_psid, response);
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
