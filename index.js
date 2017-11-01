@@ -94,14 +94,16 @@ function handleMessage(sender_psid, received_message) {
   let newUser;
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
-  if (users.includes(sender_psid)){
+  if (users.includes([sender_psid, true])){
     newUser = false;
     console.log("USERS containts: " + sender_psid);
+  } else if (users.includes([sender_psid, false])){
+    newUser = true;
   } else {
     //If it doesnt it is a new user
     newUser = true;
     //Add this sender_psid to the 'database'
-    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
+    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + [sender_psid, false] + " ", 'utf8')
     console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
