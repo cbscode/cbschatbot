@@ -92,7 +92,7 @@ function handleMessage(sender_psid, received_message) {
 
   //Check if new user or old user
   let newUser;
-  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
+  let users = fs.readFileSync("users.txt", 'utf8');
   //If our 'database' has this sender_psid it is not a new user
   if (users.includes([sender_psid, true])){
     newUser = false;
@@ -103,7 +103,7 @@ function handleMessage(sender_psid, received_message) {
     //If it doesnt it is a new user
     newUser = true;
     //Add this sender_psid to the 'database'
-    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + [sender_psid, false] + " ", 'utf8')
+    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8').push[sender_psid, false], 'utf8')
     console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
@@ -153,6 +153,8 @@ function handleMessage(sender_psid, received_message) {
 				sendEventInfo(sender_psid);
 			}else if(!answered && newUser){
 				//Any other scenario
+        console.log("LAST INDEX: " + users.indexOf([sender_psid, false]));
+
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
 				}
