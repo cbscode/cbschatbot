@@ -121,7 +121,8 @@ function handleMessage(sender_psid, received_message) {
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
   let key_welcome = ["hej", "hi", "hey", "hello", "hola"];
-	let key_negative = ["hate", "fuck", "garbage"]
+	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"]
+	let key_positive = ["love"]
 
   //How many words are in the string
 	let words = text.split(" ").length;
@@ -155,6 +156,11 @@ function handleMessage(sender_psid, received_message) {
 			}else if(keyword === "negative"){
 				response = {
 					"text": introduction+` I have no feelings, nobody can hurt me.`
+				}
+				callSendAPI(sender_psid, response);
+			}else if(keyword === "positive"){
+				response = {
+					"text": introduction+` Unfortunately I have no feelings, I am only a piece of software.`
 				}
 				callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
