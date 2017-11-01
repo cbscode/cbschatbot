@@ -84,7 +84,8 @@ function deleteUsers() {
 
 function handleMessage(sender_psid, received_message) {
 
-  exec('heroku config:set VAR_TEST_TEST=test');
+  console.log("HER KØRER DEN EXEC");
+  exec('config:set VAR_TEST_TEST=test');
   console.log(process.env.VAR_TEST_TEST);
 
   let response;
