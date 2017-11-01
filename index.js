@@ -104,7 +104,7 @@ function handleMessage(sender_psid, received_message) {
     console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
-  if (text === "heroku deleteUsers -t " + vtoken) {
+  if (received_message.text === "heroku deleteUsers -t " + vtoken) {
     deleteUsers();
     console.log("USER deleted");
     return;
