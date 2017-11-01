@@ -114,13 +114,14 @@ function handleMessage(sender_psid, received_message) {
 
   //Keyword Intelligence
 	//Topics
-  let keywords = ["experience", "contact", "event", "welcome"];
+  let keywords = ["experience", "contact", "event", "welcome", "negative"];
 
 	//Sub Keywords
   let key_experience = ["experience", "knowledge"];
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
   let key_welcome = ["hej", "hi", "hey", "hello", "hola"];
+	let key_negative = ["hate", "fuck", "garbage"]
 
   //How many words are in the string
 	let words = text.split(" ").length;
@@ -151,12 +152,17 @@ function handleMessage(sender_psid, received_message) {
 				}
 				sendEventInfo(sender_psid,keyword);
 				//callSendAPI(sender_psid, response);
+			}else if(keyword === "negative"){
+				response = {
+					"text": introduction+` I have no feelings, nobody can hurt me.`
+				}
+				callSendAPI(sender_psid, response);
 			}else if(keyword == "event"){
 				sendEventInfo(sender_psid,keyword);
 			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
-						"text": introduction+` Clever! I will need to contact my human to answer you!`
+						"text": introduction+` Clever! I am still a CBS Code beta experiment, learning from your interaction. I will need to contact my human to answer you!`
 				}
         //Add this sender_psid to the 'database'
         fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
@@ -237,7 +243,7 @@ function sendEventInfo(sender_psid,keyword) {
             }
         }
 			}	
-		}else{
+		}else if(keyword === "event"){
       response = {
         "attachment": {
             "type": "template",
