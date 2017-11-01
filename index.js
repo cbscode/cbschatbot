@@ -92,21 +92,17 @@ function handleMessage(sender_psid, received_message) {
 
   //Check if new user or old user
   let newUser;
-  let users = fs.readFileSync("users.txt").split(" ");
+  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
-  if (users.includes([sender_psid, true])){
+  if (users.includes(sender_psid)){
     newUser = false;
     console.log("USERS containts: " + sender_psid);
-  } else if (users.includes([sender_psid, false])){
-    console.log("[sender_psid, false]");
-    newUser = true;
   } else {
     //If it doesnt it is a new user
     newUser = true;
     //Add this sender_psid to the 'database'
-    let arr = [sender_psid, false]
-    fs.writeFileSync("users.txt", users.push(arr))
-    console.log("Added to USERS: " + fs.readFileSync("users.txt"));
+    fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
+    console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
   }
 
   //Delete all data in users.txt
@@ -155,8 +151,6 @@ function handleMessage(sender_psid, received_message) {
 				sendEventInfo(sender_psid);
 			}else if(!answered && newUser){
 				//Any other scenario
-        console.log("LAST INDEX: " + users.indexOf([sender_psid, false]));
-
 				response = {
 						"text": introduction+` Clever question! I will need to contact a human to answer you!`
 				}
