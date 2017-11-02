@@ -123,7 +123,7 @@ function handleMessage(sender_psid, received_message) {
 	let key_contact = ["email", "contact", "join", "question", "information"];
 	let key_event = ["event","chatbot","workshop"];
   let key_welcome = ["hej", "hi", "hey", "hello", "hola", "start"];
-	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"];
+	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch", "suck"];
 	let key_positive = ["love"];
 
   //How many words are in the string
@@ -173,7 +173,7 @@ function handleMessage(sender_psid, received_message) {
 				}
 				callSendAPI(sender_psid, response);
 				//sendEventInfo(sender_psid,keyword);
-			}else if(!answered){
+			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
 						"text": introduction+` Clever! I am a beta experiment learning from your interaction. I will need to contact my human to answer you!`
