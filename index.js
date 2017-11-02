@@ -243,10 +243,6 @@ function sendEventInfo(sender_psid,keyword) {
                         "type": "web_url",
                         "url": "http://www.cbscode.com",
                         "title": "Visit Website"
-                    }, {
-                        "type": "postback",
-                        "title": "Start Chatting",
-                        "payload": "DEVELOPER_DEFINED_PAYLOAD",
                     }],
                 }]
             }
@@ -276,10 +272,6 @@ function sendEventInfo(sender_psid,keyword) {
                         "type": "web_url",
                         "url": "https://www.eventbrite.com/e/cbs-code-build-your-own-chatbot-with-botsupplyai-tickets-38820426942",
                         "title": "Get Workshop Tickets"
-                    }, {
-                        "type": "postback",
-                        "title": "Start Chatting",
-                        "payload": "DEVELOPER_DEFINED_PAYLOAD",
                     }],
                 }]
             }
