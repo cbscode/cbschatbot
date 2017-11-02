@@ -161,7 +161,7 @@ function handleMessage(sender_psid, received_message) {
 				callSendAPI(sender_psid, response);
 			}else if(keyword === "event"){
 				sendEventInfo(sender_psid,keyword);
-			}else if(keyword === "welcome" && newUser)){
+			}else if(keyword === "welcome" && newUser){
 				response = {
 					"text": introduction
 				}
