@@ -94,6 +94,15 @@ function handleMessage(sender_psid, received_message) {
   let newUser;
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
+  if (users.includes(sender_psid)){
+		introduction = "";
+    newUser = false;
+    console.log("USERS containts: " + sender_psid);
+  } else {
+    //If it is a new user, send the welcome message
+    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
+    newUser = true;
+  }
 
   //Delete all data in users.txt
   if (received_message.text === "heroku deleteUsers -t " + vtoken) {
@@ -125,20 +134,13 @@ function handleMessage(sender_psid, received_message) {
 
   // Check if the message contains text
   if (received_message.text) {
+		//If is a new user
+    if (newUser){
+			 introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";	
+		}else{
+	      introduction = "";		
+		}
 		function print_word(keyword,key){
-      console.log("usuarios: "+users);
-			//If is a new user
-			if (users.includes(sender_psid)){
-				  newUser = false;
-				  console.log("new user");
-				  introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";	
-					console.log("USERS containts: " + sender_psid);
-			} else {
-					//If it is a new user, send the welcome message
-					newUser = true;
-					console.log("not new user");
-					introduction = "";		
-			}
 			//The console Intelligence
 			console.log("TOPIC: "+keyword+" KEYWORD: "+key);
 			if(keyword === "contact"){
