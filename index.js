@@ -95,12 +95,12 @@ function handleMessage(sender_psid, received_message) {
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
   if (users.includes(sender_psid)){
-    //If it is a new user, send the welcome message
-    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
+		introduction = "";
     newUser = false;
     console.log("USERS containts: " + sender_psid);
   } else {
-		introduction = "";
+    //If it is a new user, send the welcome message
+    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
     newUser = true;
   }
 
@@ -162,6 +162,7 @@ function handleMessage(sender_psid, received_message) {
 			}else if(keyword === "event"){
 				sendEventInfo(sender_psid,keyword);
 			}else if(keyword === "welcome" && newUser){
+				//If it is a new user, send the introductory message
 				response = {
 					"text": introduction
 				}
