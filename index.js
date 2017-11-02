@@ -120,7 +120,7 @@ function handleMessage(sender_psid, received_message) {
 
 	//Sub Keywords
   let key_experience = ["experience", "knowledge"];
-	let key_contact = ["email", "contact", "join", "question"];
+	let key_contact = ["email", "contact", "join", "question", "information"];
 	let key_event = ["event","chatbot","workshop"];
   let key_welcome = ["hej", "hi", "hey", "hello", "hola", "start"];
 	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"];
@@ -178,10 +178,12 @@ function handleMessage(sender_psid, received_message) {
 				response = {
 						"text": introduction+` Clever! I am a beta experiment learning from your interaction. I will need to contact my human to answer you!`
 				}
+				callSendAPI(sender_psid, response);
+			}
+			if (newUser){
         //Add this sender_psid to the 'database'
         fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
         console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
-				callSendAPI(sender_psid, response);
 			}
 		}
 
