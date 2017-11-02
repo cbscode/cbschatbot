@@ -83,7 +83,6 @@ function deleteUsers() {
 
 function handleMessage(sender_psid, received_message) {
 
-
   let response;
 	//Empty Introduction varable that is only shown to new users
   let introduction;
