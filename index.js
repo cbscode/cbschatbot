@@ -96,12 +96,12 @@ function handleMessage(sender_psid, received_message) {
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
   if (users.includes(sender_psid)){
-		introduction = "";
+    //If it is a new user, send the welcome message
+    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
     newUser = false;
     console.log("USERS containts: " + sender_psid);
   } else {
-    //If it is a new user, send the welcome message
-    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
+		introduction = "";
     newUser = true;
   }
 
