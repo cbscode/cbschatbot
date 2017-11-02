@@ -85,7 +85,8 @@ function handleMessage(sender_psid, received_message) {
 
 
   let response;
-  let introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
+	//Empty Introduction varable that is only shown to new users
+  let introduction;
   //Workshop questions
   let text = received_message.text;
   text = text.toLowerCase();
@@ -95,10 +96,12 @@ function handleMessage(sender_psid, received_message) {
   let users = fs.readFileSync("users.txt", 'utf8').split(" ");
   //If our 'database' has this sender_psid it is not a new user
   if (users.includes(sender_psid)){
+		introduction = "";
     newUser = false;
     console.log("USERS containts: " + sender_psid);
   } else {
-    //If it doesnt it is a new user
+    //If it is a new user, send the welcome message
+    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
     newUser = true;
   }
 
@@ -120,7 +123,7 @@ function handleMessage(sender_psid, received_message) {
   let key_experience = ["experience", "knowledge"];
 	let key_contact = ["email", "contact", "join", "question"];
 	let key_event = ["event","chatbot","workshop"];
-  let key_welcome = ["hej", "hi", "hey", "hello", "hola"];
+  let key_welcome = ["hej", "hi", "hey", "hello", "hola", "start"];
 	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch"];
 	let key_positive = ["love"];
 
@@ -163,12 +166,12 @@ function handleMessage(sender_psid, received_message) {
 					"text": introduction+` Unfortunately I have no feelings, I am only a piece of software.`
 				}
 				callSendAPI(sender_psid, response);
-			}else if(keyword == "event"){
+			}else if(keyword === "event"){
 				sendEventInfo(sender_psid,keyword);
 			}else if(!answered && newUser){
 				//Any other scenario
 				response = {
-						"text": introduction+` Clever! I am still a CBS Code beta experiment, learning from your interaction. I will need to contact my human to answer you!`
+						"text": introduction+` Clever! I am a beta experiment learning from your interaction. I will need to contact my human to answer you!`
 				}
         //Add this sender_psid to the 'database'
         fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
