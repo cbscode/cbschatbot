@@ -134,13 +134,14 @@ function handleMessage(sender_psid, received_message) {
 
   // Check if the message contains text
   if (received_message.text) {
-		//If is a new user
-    if (newUser){
-			 introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";	
-		}else{
-	      introduction = "";		
-		}
 		function print_word(keyword,key){
+
+			//If is a new user
+			if (newUser){
+				 introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";	
+			}else{
+					introduction = "";		
+			}
 			//The console Intelligence
 			console.log("TOPIC: "+keyword+" KEYWORD: "+key);
 			if(keyword === "contact"){
