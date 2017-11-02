@@ -149,12 +149,6 @@ function handleMessage(sender_psid, received_message) {
 					"text": introduction+` No coding experience is necessary on the workshop! Nevertheless is always an advantage.`
 				}
 				callSendAPI(sender_psid, response);
-			}else if(keyword === "welcome"){
-				response = {
-					"text": introduction
-				}
-				sendEventInfo(sender_psid,keyword);
-				//callSendAPI(sender_psid, response);
 			}else if(keyword === "negative"){
 				response = {
 					"text": introduction+` I have no feelings, nobody can hurt me.`
@@ -167,7 +161,13 @@ function handleMessage(sender_psid, received_message) {
 				callSendAPI(sender_psid, response);
 			}else if(keyword === "event"){
 				sendEventInfo(sender_psid,keyword);
-			}else if(!answered && newUser){
+			}else if(keyword === "welcome" && newUser)){
+				response = {
+					"text": introduction
+				}
+				callSendAPI(sender_psid, response);
+				//sendEventInfo(sender_psid,keyword);
+			}else if(!answered){
 				//Any other scenario
 				response = {
 						"text": introduction+` Clever! I am a beta experiment learning from your interaction. I will need to contact my human to answer you!`
