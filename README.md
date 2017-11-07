@@ -1,10 +1,8 @@
 # 🤖 Creating your own Facebook Messenger bot
 
-![Alt text](/demo/Demo.gif)
-
 Facebook recently opened up their Messenger platform to enable bots to converse with users through Facebook Apps and on Facebook Pages. 
 
-You can read the  [documentation](https://developers.facebook.com/docs/messenger-platform/quickstart) the Messenger team prepared but it's not very clear for beginners and intermediate hackers. 
+You can read the  [documentation](https://developers.facebook.com/docs/messenger-platform/getting-started) the Messenger team prepared but it's not very clear for beginners and intermediate hackers. 
 
 So instead here is how to create your own messenger bot in 15 minutes.
 
@@ -16,13 +14,21 @@ You can also skip the whole thing by git cloning this repository, running npm in
 
 ### *Build the server*
 
-1. Install the Heroku toolbelt from here https://toolbelt.heroku.com to launch, stop and monitor instances. Sign up for free at https://www.heroku.com if you don't have an account yet.
-
-2. Install Node from here https://nodejs.org, this will be the server environment. Then open up Terminal or Command Line Prompt and make sure you've got the very most recent version of npm by installing it again:
+1. Install Node from here https://nodejs.org, this will be the server environment. Then open up Terminal or Command Line Prompt and make sure you've got the very most recent version of npm by installing it again:
 
     ```
     sudo npm install npm -g
     ```
+
+2. Install the Heroku CLI from here https://devcenter.heroku.com/articles/heroku-cli to launch, stop and monitor instances. Sign up for free at https://www.heroku.com if you don't have an account yet.
+
+    ```
+    brew install heroku/brew/heroku
+    ```
+	  ```
+		//In case that you don't have homebrew, this is the intaller command of MacOS  
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		```
 
 3. Create a new folder somewhere and let's create a new Node project. Hit Enter to accept the defaults.
 
@@ -93,17 +99,25 @@ You can also skip the whole thing by git cloning this repository, running npm in
 
 1. Create or configure a Facebook App or Page here https://developers.facebook.com/apps/
 
-    ![Alt text](/demo/shot1.jpg)
+    ![Alt text](/demo/0.png)
 
-2. In the app go to Messenger tab then click Setup Webhook. Here you will put in the URL of your Heroku server and a token. Make sure to check all the subscription fields. 
+2. Select Messenger as a product 
 
-    ![Alt text](/demo/shot3.jpg)
+    ![Alt text](/demo/1.png)
 
-3. Get a Page Access Token and save this somewhere. 
+3. In the app go to Messenger tab then click Setup Webhook. Here you will put in the URL of your Heroku server and a token. Make sure to check all the subscription fields. 
 
-    ![Alt text](/demo/shot2.jpg)
+    ![Alt text](/demo/2.png)
 
-4. Go back to Terminal and type in this command to trigger the Facebook app to send messages. Remember to use the token you requested earlier.
+4. Get a Page Access Token and save this somewhere. 
+
+    ![Alt text](/demo/3.png)
+
+4. Until this point you can test your app only in a developer account, to release send the messenger app for permission on pages-messaging. 
+
+    ![Alt text](/demo/4.png)
+
+6. Go back to Terminal and type in this command to trigger the Facebook app to send messages. Remember to use the token you requested earlier.
 
     ```bash
     curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=<PAGE_ACCESS_TOKEN>"
