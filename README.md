@@ -24,8 +24,7 @@ You can also skip the whole thing by git cloning this repository, running npm in
 
     ```
     brew install heroku/brew/heroku
-    ```
-	  ```
+		
 		//In case that you don't have homebrew, this is the intaller command of MacOS  
 		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 		```
@@ -65,13 +64,13 @@ You can also skip the whole thing by git cloning this repository, running npm in
     	res.send('Hello world, I am a chat bot')
     })
 
-    // for Facebook verification
-    app.get('/webhook/', function (req, res) {
-    	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
-    		res.send(req.query['hub.challenge'])
-    	}
-    	res.send('Error, wrong token')
-    })
+		// for Facebook verification
+		app.get('/webhook/', function (req, res) {
+				if (req.query['hub.verify_token'] === vtoken) {
+						res.send(req.query['hub.challenge'])
+				}
+				res.send('No sir')
+		})
 
     // Spin up the server
     app.listen(app.get('port'), function() {
@@ -130,29 +129,55 @@ Now that Facebook and Heroku can talk to each other we can code out the bot.
 1. Add an API endpoint to index.js to process messages. Remember to also include the token we got earlier. 
 
     ```javascript
-    app.post('/webhook/', function (req, res) {
-	    let messaging_events = req.body.entry[0].messaging
-	    for (let i = 0; i < messaging_events.length; i++) {
-		    let event = req.body.entry[0].messaging[i]
-		    let sender = event.sender.id
-		    if (event.message && event.message.text) {
-			    let text = event.message.text
-			    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-		    }
-	    }
-	    res.sendStatus(200)
-    })
+		const token = "<PAGE_ACCESS_TOKEN>"
 
-    const token = "<PAGE_ACCESS_TOKEN>"
+    app.post('/webhook/', function (req, res) {
+
+			// Parse the request body from the POST
+			let body = req.body;
+
+			// Check the webhook event is from a Page subscription
+			if (body.object === 'page') {
+
+				// Iterate over each entry - there may be multiple if batched
+				body.entry.forEach(function(entry) {
+
+					// Get the webhook event. entry.messaging is an array, but
+					// will only ever contain one event, so we get index 0
+					let webhook_event = entry.messaging[0];
+
+						// Get the sender PSID
+						let sender_psid = webhook_event.sender.id;
+
+						// Check if the event is a message or postback and
+						// pass the event to the appropriate handler function
+						if (webhook_event.message) {
+							handleMessage(sender_psid, webhook_event.message);
+						} else if (webhook_event.postback) {
+							handlePostback(sender_psid, webhook_event.postback);
+						}
+
+					});
+
+					// Return a '200 OK' response to all events
+					res.status(200).send('EVENT_RECEIVED');
+
+				} else {
+					// Return a '404 Not Found' if event is not from a page subscription
+					res.sendStatus(404);
+				}
+
+			});
+
     ```
     
     **Optional, but recommended**: keep your app secrets out of version control!
     - On Heroku, its easy to create dynamic runtime variables (known as [config vars](https://devcenter.heroku.com/articles/config-vars)). This can be done in the Heroku dashboard UI for your app **or** from the command line:
-    ![Alt text](/demo/config_vars.jpg)
     ```bash
-    heroku config:set FB_PAGE_ACCESS_TOKEN=fake-access-token-dhsa09uji4mlkasdfsd
+    heroku config:set FB_PAGE_ACCESS_TOKEN=MY_SECRET_TOKEN_NUMBER
+    heroku config:set FB_PAGE_VERIFY_TOKEN=MY_VERIFY_TOKEN
     
-    # view
+    #To view your config variables
     heroku config
     ```
 
