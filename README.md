@@ -112,11 +112,14 @@ You can also skip the whole thing by git cloning this repository, running npm in
 
     ![Alt text](/demo/3.png)
 
-4. Until this point you can test your app only in a developer account, to release send the messenger app for permission on pages-messaging. 
+5. In order to release your chatbot, you will need to create a privacy policy. Do it here: https://termsfeed.com/privacy-policy/generator/
+
+
+6. Until this point you can test your app only in a developer account, to release send the messenger app for permission on pages-messaging. 
 
     ![Alt text](/demo/4.png)
 
-6. Go back to Terminal and type in this command to trigger the Facebook app to send messages. Remember to use the token you requested earlier.
+7. Go back to Terminal and type in this command to trigger the Facebook app to send messages. Remember to use the token you requested earlier.
 
     ```bash
     curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=<PAGE_ACCESS_TOKEN>"
@@ -129,7 +132,9 @@ Now that Facebook and Heroku can talk to each other we can code out the bot.
 1. Add an API endpoint to index.js to process messages. Remember to also include the token we got earlier. 
 
     ```javascript
-		const token = "<PAGE_ACCESS_TOKEN>"
+		//If you declared your access variables on Heroku you need to bring them back like this
+		const token = process.env.FB_PAGE_ACCESS_TOKEN
+		const vtoken = process.env.FB_PAGE_VERIFY_TOKEN
 
     app.post('/webhook/', function (req, res) {
 
