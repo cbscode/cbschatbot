@@ -1,9 +1,5 @@
 'use strict'
 
-//const token = process.env.FB_PAGE_ACCESS_TOKEN_TEST
-const token = process.env.FB_PAGE_ACCESS_TOKEN
-const vtoken = process.env.FB_PAGE_VERIFY_TOKEN
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
@@ -50,11 +46,9 @@ app.post('/webhook', (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
 
 			// Get the sender PSID
 			let sender_psid = webhook_event.sender.id;
-			console.log('Sender PSID: ' + sender_psid);
 
 			// Check if the event is a message or postback and
 			// pass the event to the appropriate handler function
@@ -76,10 +70,6 @@ app.post('/webhook', (req, res) => {
 
 });
 
-//Empty the users.txt file
-function deleteUsers() {
-  fs.writeFileSync("users.txt","", 'utf8')
-}
 
 function handleMessage(sender_psid, received_message) {
 
@@ -90,116 +80,10 @@ function handleMessage(sender_psid, received_message) {
   let text = received_message.text;
   text = text.toLowerCase();
 
-  //Check if new user or old user
-  let newUser;
-  let users = fs.readFileSync("users.txt", 'utf8').split(" ");
-  //If our 'database' has this sender_psid it is not a new user
-  if (users.includes(sender_psid)){
-		introduction = "";
-    newUser = false;
-    console.log("USERS containts: " + sender_psid);
-  } else {
-    //If it is a new user, send the welcome message
-    introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";
-    newUser = true;
-  }
-
-  //Delete all data in users.txt
-  if (received_message.text === "heroku deleteUsers -t " + vtoken) {
-    deleteUsers();
-    console.log("USER deleted");
-    return;
-  }
-
-
-
-
-  //Keyword Intelligence
-	//Topics
-  let keywords = ["experience", "contact", "event", "welcome", "negative", "positive"];
-
-	//Sub Keywords
-  let key_experience = ["experience", "knowledge"];
-	let key_contact = ["email", "contact", "join", "question", "information"];
-	let key_event = ["event","chatbot","workshop"];
-  let key_welcome = ["hej", "hi", "hey", "hello", "hola", "start"];
-	let key_negative = ["hate", "fuck", "garbage", "shit", "bitch", "suck"];
-	let key_positive = ["love"];
-
-  //How many words are in the string
-	let words = text.split(" ").length;
-  let x,y;
-	let key = [];
-	let answered = false;
 
   // Check if the message contains text
   if (received_message.text) {
-		//If is a new user
-    if (newUser){
-			 introduction = "Hi my name is Alfred 1.0, the CBS Code Chatbot.";	
-		}else{
-	      introduction = "";		
-		}
-		function print_word(keyword,key){
-			//The console Intelligence
-			console.log("TOPIC: "+keyword+" KEYWORD: "+key);
-			if(keyword === "contact"){
-				//Posibly looks for a contact
-				response = {
-					"text":  introduction+` You can contact us on info@cbscode.com!`
-				}
-				callSendAPI(sender_psid, response);
-			}else if(keyword === "experience"){
-				response = {
-					"text": introduction+` No coding experience is necessary on the workshop! Nevertheless is always an advantage.`
-				}
-				callSendAPI(sender_psid, response);
-			}else if(keyword === "negative"){
-				response = {
-					"text": introduction+` I have no feelings, nobody can hurt me.`
-				}
-				callSendAPI(sender_psid, response);
-			}else if(keyword === "positive"){
-				response = {
-					"text": introduction+` Unfortunately I have no feelings, I am only a piece of software.`
-				}
-				callSendAPI(sender_psid, response);
-			}else if(keyword === "event"){
-				sendEventInfo(sender_psid,keyword);
-			}else if(keyword === "welcome" && newUser){
-				//If it is a new user, send the introductory message
-				response = {
-					"text": introduction
-				}
-				callSendAPI(sender_psid, response);
-				//sendEventInfo(sender_psid,keyword);
-			}else if(!answered && newUser){
-				//Any other scenario
-				response = {
-						"text": introduction+` Clever! I am a beta experiment learning from your interaction. I will need to contact my human to answer you!`
-				}
-				callSendAPI(sender_psid, response);
-			}
-			if (newUser){
-        //Add this sender_psid to the 'database'
-        fs.writeFileSync("users.txt", fs.readFileSync("users.txt", 'utf8') + sender_psid + " ", 'utf8')
-        console.log("Added to USERS: " + fs.readFileSync("users.txt", 'utf8'));
-			}
-		}
-
-		//This For measures the main categories on each array
-		for(x=0;x<=keywords.length-1;x++){
-				key = eval("key_"+keywords[x]);
-				//Here I check if each word inside of each category array has a match on the written text
-				for(y=0;y<=key.length-1;y++){
-					 if (text.indexOf(key[y]) > -1){
-							print_word(keywords[x],key[y]);
-							answered = true;
-					 }
-				}
-		}
-		if (!answered){print_word("empty","0")}
-
+   //Take the text and manipulate the message 
   }
 
   // Sends the response message
@@ -230,7 +114,6 @@ function callSendAPI(sender_psid, response) {
 
 function sendEventInfo(sender_psid,keyword) {
     let response; 
-		if(keyword === "welcome"){			
       response = {
         "attachment": {
             "type": "template",
@@ -255,36 +138,6 @@ function sendEventInfo(sender_psid,keyword) {
             }
         }
 			}	
-		}else if(keyword === "event"){
-      response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "Welcome to CBS Code",
-										"image_url":"http://cbscode.com/wp-content/uploads/2017/11/22538684_1580502938677015_4938843189517739898_o.jpg",
-                    "subtitle": "Workshop on Create your Own ChatBot",
-										"default_action":{
-												"type": "web_url",
-												"url": "https://www.facebook.com/cbscode/",
-												"messenger_extensions": true,
-												"webview_height_ratio": "tall",
-										},
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "http://www.cbscode.com",
-                        "title": "Visit Website"
-                    }, {
-                        "type": "web_url",
-                        "url": "https://www.eventbrite.com/e/cbs-code-build-your-own-chatbot-with-botsupplyai-tickets-38820426942",
-                        "title": "Get Workshop Tickets"
-                    }],
-                }]
-            }
-        }
-			}	
-    }
 		//callSendAPI(sender_psid, response);
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
