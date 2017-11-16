@@ -372,7 +372,7 @@ You can also connect an AI brain to your bot [here](https://wit.ai)
 
 Read about all things chat bots with the ChatBots Magazine [here](https://medium.com/chat-bots)
 
-You can also design Messenger bots in Sketch with the [Bots UI Kit](https://bots.mockuuups.com)!
+You can also design Messenger bots and Mockups with the [Bot Society Tool](https://botsociety.io/)!
 
 ## How I can help
 
